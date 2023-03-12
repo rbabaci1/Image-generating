@@ -50,6 +50,7 @@ const Home = () => {
             item.name.toLowerCase().includes(searchText.toLowerCase()) ||
             item.prompt.toLowerCase().includes(searchText.toLowerCase())
         );
+
         setSearchedResults(searchResult);
       }, 500)
     );
