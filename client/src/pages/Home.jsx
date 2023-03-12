@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Posts, FormField, Loader } from '../components';
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
+  const [fetchingPosts, setFetchingPosts] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
 
   const [searchText, setSearchText] = useState('');
@@ -11,7 +11,7 @@ const Home = () => {
   const [searchedResults, setSearchedResults] = useState(null);
 
   const fetchPosts = async () => {
-    setLoading(true);
+    setFetchingPosts(true);
 
     try {
       const response = await fetch('http://localhost:8080/api/v1/posts', {
@@ -29,7 +29,7 @@ const Home = () => {
     } catch (err) {
       alert(err);
     } finally {
-      setLoading(false);
+      setFetchingPosts(false);
     }
   };
 
@@ -79,7 +79,7 @@ const Home = () => {
       </div>
 
       <div className='mt-10'>
-        {loading ? (
+        {fetchingPosts ? (
           <div className='flex justify-center items-center'>
             <Loader />
           </div>
