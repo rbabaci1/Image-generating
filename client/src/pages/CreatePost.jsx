@@ -15,13 +15,14 @@ const CreatePost = () => {
   });
 
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [submittingForm, setSubmittingForm] = useState(false);
 
   const handleChange = e =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
+
     setForm({ ...form, prompt: randomPrompt });
   };
 
@@ -57,8 +58,9 @@ const CreatePost = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (form.prompt && form.photo) {
-      setLoading(true);
+    if (form.name && form.prompt && form.photo) {
+      setSubmittingForm(true);
+
       try {
         const response = await fetch(
           'https://dalle-arbb.onrender.com/api/v1/post',
@@ -77,7 +79,7 @@ const CreatePost = () => {
       } catch (err) {
         alert(err);
       } finally {
-        setLoading(false);
+        setSubmittingForm(false);
       }
     } else {
       alert('Please generate an image with proper details');
@@ -143,7 +145,7 @@ const CreatePost = () => {
           <button
             type='button'
             onClick={generateImage}
-            className=' text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+            className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
           >
             {generatingImg ? 'Generating...' : 'Generate'}
           </button>
@@ -154,11 +156,12 @@ const CreatePost = () => {
             *** Once you have created the image you want, you can share it with
             others in the community ***
           </p>
+
           <button
             type='submit'
             className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
           >
-            {loading ? 'Sharing...' : 'Share with the Community'}
+            {submittingForm ? 'Sharing...' : 'Share with the Community'}
           </button>
         </div>
       </form>
