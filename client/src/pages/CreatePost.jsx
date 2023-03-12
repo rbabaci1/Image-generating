@@ -20,12 +20,14 @@ const CreatePost = () => {
   const handleChange = e =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  // generating random prompt so we can generate an image
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
 
     setForm({ ...form, prompt: randomPrompt });
   };
 
+  // generating image from Dall-E AI
   const generateImage = async () => {
     if (form.prompt) {
       try {
@@ -52,6 +54,7 @@ const CreatePost = () => {
     }
   };
 
+  // posting form data to server then to mongodb
   const handleSubmit = async e => {
     e.preventDefault();
 
