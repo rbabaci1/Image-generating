@@ -30,18 +30,15 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch(
-          'https://dalle-arbb.onrender.com/api/v1/dalle',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              prompt: form.prompt,
-            }),
-          }
-        );
+        const response = await fetch('http://localhost:8080/api/v1/dalle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
+        });
 
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
@@ -62,16 +59,13 @@ const CreatePost = () => {
       setSubmittingForm(true);
 
       try {
-        const response = await fetch(
-          'https://dalle-arbb.onrender.com/api/v1/post',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ...form }),
-          }
-        );
+        const response = await fetch('http://localhost:8080/api/v1/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...form }),
+        });
 
         await response.json();
         alert('Success');
@@ -118,12 +112,12 @@ const CreatePost = () => {
             handleSurpriseMe={handleSurpriseMe}
           />
 
-          <div className='relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center'>
+          <div className='relative bg-gray-50 border border-gray-300 p-2 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 h-64 flex justify-center items-center'>
             {form.photo ? (
               <img
                 src={form.photo}
                 alt={form.prompt}
-                className='w-full h-full object-contain'
+                className='w-full h-full object-cover'
               />
             ) : (
               <img
