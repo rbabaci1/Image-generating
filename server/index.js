@@ -14,7 +14,7 @@ app.use(express.json({ limit: '50mb' })); // enable json body parsing
 
 // routes
 // app.use('/api/posts', postRoutes);
-app.use('/api/dalle', dalleRoutes);
+app.use('/api/v1/dalle', dalleRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello from DALL-E!');
