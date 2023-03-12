@@ -50,7 +50,7 @@ const Home = () => {
         );
 
         setSearchedResults(searchResult);
-      }, 500)
+      }, 700)
     );
   };
 
@@ -87,8 +87,8 @@ const Home = () => {
           <>
             {searchText && (
               <h2 className='font-medium text-[#666e75] text-xl mb-3'>
-                Showing Results for
-                <span className='text-[#222328]'>{searchText}</span>:
+                Showing Results for:{' '}
+                <span className='text-[#222328]'>{searchText}</span>
               </h2>
             )}
 
